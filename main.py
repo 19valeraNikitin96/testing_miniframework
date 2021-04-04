@@ -1,12 +1,9 @@
-# This is a sample Python script.
+#!/usr/bin/python3
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 import unittest
 
 from app_remote.app_remote import AppRemote
 from testcases import Testcase, MonolithicTestcase
-from testcases.users import UserTests, UsersCreateFailed, UsersCreatePassed, UsersReadPassed
 import multiprocessing
 import json
 import logging
@@ -25,15 +22,12 @@ def validate_config(config: dict) -> None:
             raise ConfigParseException('Could not find key \'{}\' in \'app-settings\''.format(k), [k])
 
 
-# Press the green button in the gutter to run the script.
 class ConfigException(Exception):
     def __init__(self, message):
-        # Call the base class constructor with the parameters it needs
         super().__init__(message)
 
 class ConfigParseException(Exception):
     def __init__(self, message, problem_keys):
-        # Call the base class constructor with the parameters it needs
         super().__init__(message)
         self.problem_keys = problem_keys
 

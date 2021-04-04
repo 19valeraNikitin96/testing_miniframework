@@ -72,3 +72,7 @@ You can execute tests concurrently using 'concurrent-testing' field with 'true' 
 You can provide test data using field 'test-data'
 
 * app-settings - it contains all needed information about application location
+
+### How to run?
+
+python3 main.py

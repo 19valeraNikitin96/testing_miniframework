@@ -3,6 +3,7 @@
 from testcases import Testcase, MonolithicTestcase
 import logging
 
+
 class UsersCreateFailed(Testcase):
 
     def test_partially_filled(self):
