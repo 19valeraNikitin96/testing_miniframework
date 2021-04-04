@@ -8,7 +8,7 @@
         "test-data": {
             "name": "John",
             "gender": "Male",
-            "email": "e@a.a",
+            "email": "g@a.a",
             "status": "Active"
         }
       },
@@ -18,7 +18,7 @@
         "test-data": {
             "name": "John",
             "gender": "Male",
-            "email": "e@a.a",
+            "email": "h@a.a",
             "status": "Active"
         }
       }
@@ -28,7 +28,6 @@
   "app-settings": {
     "protocol": "https",
     "domain": "gorest.co.in",
-    "port": 443,
-    "access_token": "<YOUR ACCESS TOKEN>"
+    "port": 443
   }
 }

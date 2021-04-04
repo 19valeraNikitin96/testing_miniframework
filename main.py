@@ -9,6 +9,13 @@ import json
 import logging
 import importlib
 
+log_const = {
+    'INFO': logging.INFO,
+    'DEBUG': logging.DEBUG,
+    'WARNING': logging.WARNING,
+    'CRITICAL': logging.CRITICAL,
+}
+
 
 def validate_config(config: dict) -> None:
     for k in ['testing', 'app-settings']:
@@ -17,7 +24,7 @@ def validate_config(config: dict) -> None:
     for k in ["resources"]:
         if config['testing'].get(k, None) == None:
             raise ConfigParseException('Could not find key \'{}\' in \'testing\''.format(k), [k])
-    for k in ["protocol", "domain", "port", "access_token"]:
+    for k in ["protocol", "domain", "port"]:
         if config['app-settings'].get(k, None) == None:
             raise ConfigParseException('Could not find key \'{}\' in \'app-settings\''.format(k), [k])
 
@@ -25,6 +32,7 @@ def validate_config(config: dict) -> None:
 class ConfigException(Exception):
     def __init__(self, message):
         super().__init__(message)
+
 
 class ConfigParseException(Exception):
     def __init__(self, message, problem_keys):
@@ -54,15 +62,7 @@ if __name__ == '__main__':
         raise ConfigException('Could not find config file. Please, check that config exists and has proper name')
 
     logger = logging.getLogger()
-    logging_value = data['testing'].get('logging-level', 'INFO')
-    if logging_value == 'INFO':
-        logger.level = logging.INFO
-    if logging_value == 'DEBUG':
-        logger.level = logging.DEBUG
-    if logging_value == 'WARNING':
-        logger.level = logging.WARNING
-    if logging_value == 'CRITICAL':
-        logger.level = logging.CRITICAL
+    logging_value = log_const[data['testing'].get('logging-level', 'INFO')]
     logging.info('Logging level: {}'.format(logging_value))
 
     app_remote = AppRemote(**data['app-settings'])
@@ -71,7 +71,7 @@ if __name__ == '__main__':
     resources = data['testing']['resources']
     processors = multiprocessing.cpu_count()
     multiproc_enabled = data['testing'].get('concurrent-testing', False)
-    logging.info('Multiprocessing enabled')
+    logging.info('Multiprocessing enabled: {}'.format(multiproc_enabled))
 
     if multiproc_enabled:
         processes = []
